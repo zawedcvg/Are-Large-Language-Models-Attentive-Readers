@@ -12,18 +12,7 @@ load_dotenv()
 DIR = os.getenv("DIR")
 from tqdm import tqdm
 
-# Define your OpenAI API key
 openai.api_key = os.getenv("OPENAI_KEY")
-
-
-def backoff_delay(backoff_factor, attempts):
-    # backoff algorithm
-    delay = backoff_factor * (2 ** attempts)
-    return delay
-def retry_request():
-    pass
-
-
 
 file_to_read = f"{DIR}/fake_named_entities_openai_prompts.json"
 file_to_write = f"{DIR}/fake_entities_generated.json"
@@ -45,7 +34,7 @@ async def waiting_code(task, tries):
             ans = await waiting_code(task, tries)
             return ans
         else:
-            print("This failed you suck")
+            print("Received no response")
             return []
 
 async def main():
@@ -77,10 +66,9 @@ async def main():
             all_responses[1].append(response)
         return all_responses
     except:
-        print("something went wrong lmao")
+        print("something went wrong")
 
 loop = asyncio.new_event_loop()
 ans = loop.run_until_complete(main())
-print(len(ans))
 with open(file_to_write, 'w') as fp:
     json.dump(ans, fp)

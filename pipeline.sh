@@ -1,4 +1,5 @@
 #!/bin/bash
+source .env
 source ~/environments/fyp/bin/activate
 #this is for getting the moddifiable portions based on the defined rules.
 echo "getting modifiable parts"
@@ -23,9 +24,10 @@ python3 ./fill_in_failed_req.py named
 # extract the paragraphs
 python3 ./extract_fake_paragraphs.py other
 python3 ./extract_fake_paragraphs.py named
-#create prompts for llama 2
+echo "end of preprocessing step"
+#example to create prompts with the fake paragraphs of type other, 2 fake paragraphs that are related for llama 2
 python3 create_prompts_with_fake_para.py -t other -c 2 --related
 python3 create_prompts_with_fake_para.py -t named -c 2 --related
-echo "The final prompts for llama-2 are in {DIR}/final_prompts"
-echo "The final general prompts are in {DIR}/final_prompts/fake_intermediate"
+echo "The final prompts for llama-2 are in $FINAL_PROMPTS/llama13b"
+echo "The final prompts in hotpotqa format are in $FINAL_PROMPTS/hotpotqa_format"
 deactivate

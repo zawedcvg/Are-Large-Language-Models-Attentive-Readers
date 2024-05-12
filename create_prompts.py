@@ -121,9 +121,9 @@ Fake paragraph: ....."
 def create_fake_para_openai(dataset):
     json_content = []
 
-    with open("../../subqa/dev_ori.json", "r") as fp:
+    with open("data/dev_ori.json", "r") as fp:
         original_question = json.load(fp)
-    with open("../../subqa/dev_sub1.json", "r") as fp:
+    with open("data/dev_sub1.json", "r") as fp:
         first_subquestion = json.load(fp)
     system_prompt = "You are a helpful and respectful fake paragraph generating assistant. You will be given two questions, few supporting paragraphs and two words you need to avoid. You will first give a fake answer for the first question. The fake answer should not be the same as any of the two words that needs to be avoided. Generate a fake paragraph using the information from the first question and the fake answer generated. The answer and information should not be related to any real life entity. The paragraphs generated must match the tone of the given two paragraphs. Further, the two paragraphs generated must not contradict any of the information in the supporting paragraphs provided by the user.\n\
 Use the fake answer generated for the first question to replace all instances of '[answer]' in the second question. Use the newly generated question and generate a fake answer for it. Ensure that the fake answer generated is not the same as the any of the provided words you need to avoid. Similar to the first question use the fake answer and the question to generate a fake paragraph. You will generate the fake paragraphs as if it were part of a wikipedia article. You must maintain a neutral and informative tone.\n\
@@ -258,47 +258,3 @@ if __name__ == "main":
 
     with open('../subqa/prompt_second.json', 'w') as fp:
         json.dump(second_json_content, fp)
-
-# for probe_datapoint in probe_dev:
-    # context = probe_datapoint['context']
-    # total_context = []
-
-    # for topic in context:
-        # total_context.append("".join(topic[1]).replace("\"", "\\\""))
-        # context_thing = "".join(total_context)
-
-    # prompt_multi = f"<s>[INST] <<SYS>> \
-    # You are a helpful, respectful and honest question answering assistant. You always answer in the fewest possible words, and provide only the answer and no explanation.  Use only the following context to answer the questions. Context : {context_thing}\n\
-    # If the question cannot be answered by the information provided by the context,reply with \"information not in the context\" \
-    # <</SYS>>\
-     # {probe_datapoint['question']}[/INST]"
-    # new_json_content.append({'question': probe_datapoint['question'], 'context': context_thing, 'prompt': prompt_multi, '_id' : probe_datapoint['_id'], 'answer': probe_datapoint['answer']})
-    # ids.append(probe_datapoint['_id'])
-
-# answer_hotpot_qa = []
-# actual_hotpot_qa = []
-# for i in validation_dataset:
-    # # print(i)
-    # if i['id'] in ids:
-        # context = i['context']['sentences']
-        # total_context = []
-        # for topic in context:
-            # total_context.append("".join(topic).replace("\"", "\\\""))
-            # context_thing = "".join(total_context)
-        # # print(context_thing)
-        # prompt_multi = f"<s>[INST] <<SYS>> \
-        # You are a helpful, respectful and honest question answering assistant. You always answer in the fewest possible words, and provide only the answer and no explanation.  Use only the following context to answer the questions. Context : {context_thing}\n\
-        # If the question cannot be answered by the information provided by the context,reply with \"information not in the context\" \
-        # <</SYS>>\
-         # {i['question']}[/INST]"
-        # actual_hotpot_qa.append({'question': i['question'], 'context': context_thing, 'prompt': prompt_multi, '_id' : i['id'], 'answer': i['answer']})
-        # # print(i['question'])
-
-# print(actual_hotpot_qa[0])
-# print(len(actual_hotpot_qa))
-
-# with open('./actual_hotpot_qa.json', 'w') as fp:
-    # json.dump(actual_hotpot_qa, fp)
-
-# with open('./dire_context_joined.json', 'w') as fp:
-    # json.dump(new_json_content, fp)

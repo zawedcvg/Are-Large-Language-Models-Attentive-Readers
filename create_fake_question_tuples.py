@@ -21,13 +21,9 @@ with open(f"{DIR}/intermediate_other.json", 'r') as fp:
     fake_questions_other = json.load(fp)
 with open(f"{DIR}/intermediate_named.json", 'r') as fp:
     fake_questions_named = json.load(fp)
-with open(f"indices.txt", 'r') as fp:
-    incorrect_indices = [int(i.strip()) - 1 for i in fp.readlines()]
 
 def default_value():
     return []
-
-print(incorrect_indices)
 
 
 #there can be following mixes.
@@ -38,10 +34,7 @@ print(incorrect_indices)
 #else no point in using b'
 #new rules:
 # a'b, a'b'
-# no ab', as it feels a little bit risky?
-#UPDATE This seems to be most likely okay as I am going to add in entailment
-#maybe its ok? just need to take care of things.
-
+# no ab', as it doesn't work well
 
 def is_in(num, ranges, thing):
     for i in range(num, num+ranges):
@@ -70,39 +63,24 @@ def the_mixer(all_fake_questions):
         answer_replaced_second_hop = second_question_real.replace(all_question_tuples[index][2], "[answer]")
         second_hop.append(answer_replaced_second_hop)
         second_hop = filter(lambda x: "[answer]" in x, second_hop)
-        # all_fake_tuples
         new_fake_tuples = [[i[0], i[1], index] for i in itertools.product(value, second_hop)]
-        # print(new_fake_tuples)
-        # input()
-        # print(new_fake_tuples)
         all_fake_tuples = all_fake_tuples + new_fake_tuples
-        # print(incorrect_indices)
-        # input()
-        if is_in(index_kinda, len(new_fake_tuples), incorrect_indices):
-            print(new_fake_tuples)
-            input()
         index_kinda += len(new_fake_tuples)
-        # print(all_fake_tuples)
-        # input()
     return all_fake_tuples
 
-# all_fake_tuples_named = the_mixer(fake_questions_named)
 all_fake_tuples_other = the_mixer(fake_questions_other)
-
-print(len(all_fake_tuples_other))
-input()
+all_fake_tuples_named = the_mixer(fake_questions_named)
 
 other_fake_para_prompts = create_fake_para_openai(all_fake_tuples_other)
-# named_fake_para_prompts = create_fake_para_openai(all_fake_tuples_named)
-input()
+named_fake_para_prompts = create_fake_para_openai(all_fake_tuples_named)
 
 
 with open(f"{DIR}/final_intermediate_other.json", 'w') as fp:
     json.dump(all_fake_tuples_other, fp)
-# with open(f"{DIR}/final_intermediate_named.json", 'w') as fp:
-    # json.dump(all_fake_tuples_named, fp)
+with open(f"{DIR}/final_intermediate_named.json", 'w') as fp:
+    json.dump(all_fake_tuples_named, fp)
 
 with open(f"{DIR}/other_fake_para_prompts.json", 'w') as fp:
     json.dump(other_fake_para_prompts, fp)
-# with open(f"{DIR}/named_fake_para_prompts.json", 'w') as fp:
-    # json.dump(named_fake_para_prompts, fp)
+with open(f"{DIR}/named_fake_para_prompts.json", 'w') as fp:
+    json.dump(named_fake_para_prompts, fp)

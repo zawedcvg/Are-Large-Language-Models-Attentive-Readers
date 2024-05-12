@@ -5,13 +5,13 @@ load_dotenv()
 
 DIR = os.getenv("DIR")
 
-with open('../../subqa/dev_ori.json', 'r') as fp:
+with open('data/dev_ori.json', 'r') as fp:
     multi_hop = json.load(fp)
 
-with open('../../subqa/dev_sub1.json', 'r') as fp:
+with open('data/dev_sub1.json', 'r') as fp:
     single_hop = json.load(fp)
 
-with open('../../subqa/dev_sub2.json', 'r') as fp:
+with open('data/dev_sub2.json', 'r') as fp:
     second_hop = json.load(fp)
 
 json_thing = []
