@@ -25,9 +25,9 @@ python3 ./fill_in_failed_req.py named
 python3 ./extract_fake_paragraphs.py other
 python3 ./extract_fake_paragraphs.py named
 echo "end of preprocessing step"
-#example to create prompts with the fake paragraphs of type other, 2 fake paragraphs that are related for llama 2
-python3 create_prompts_with_fake_para.py -t other -c 2 --related
-python3 create_prompts_with_fake_para.py -t named -c 2 --related
-echo "The final prompts for llama-2 are in $FINAL_PROMPTS/llama13b"
-echo "The final prompts in hotpotqa format are in $FINAL_PROMPTS/hotpotqa_format"
-deactivate
+##example to create prompts with the fake paragraphs of type other, 2 fake paragraphs that are related for llama 2
+#python3 create_prompts_with_fake_para.py -t other -c 2 --related
+#python3 create_prompts_with_fake_para.py -t named -c 2 --related
+#echo "The final prompts for llama-2 are in $FINAL_PROMPTS/llama13b"
+#echo "The final prompts in hotpotqa format are in $FINAL_PROMPTS/hotpotqa_format"
+#deactivate

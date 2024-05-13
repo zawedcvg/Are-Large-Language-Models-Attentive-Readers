@@ -20,7 +20,7 @@ final_prompts = os.getenv("FINAL_PROMPTS")
 parser.add_argument("-t", "--type", help="type of modifiable part")
 parser.add_argument('--related', action=argparse.BooleanOptionalAction)
 parser.add_argument("-c", "--count", help="number of paragraphs to be inserted", type=int)
-parser.add_argument("-m", "--model", help="the type of model it is being generated for", type=str)
+parser.add_argument("-m", "--model", help="the type of model it is being generated for", type=str, default="")
 parser.add_argument('--same_type', action=argparse.BooleanOptionalAction, default=False)
 
 args = parser.parse_args()
@@ -144,6 +144,8 @@ with open(f"./{final_prompts}/hotpotqa_format/fake_intermediate_paragraph_idx_{t
 with open(f"./{final_prompts}/hotpotqa_format/fake_intermediate_paragraph_idx_no_changes_{type_prompt}_{args.related}_{args.count}{same_type_string}.json", "w") as fp:
     json.dump(new_dataset_no_changes, fp)
 
+if model == "":
+    exit()
 
 if model == "mixtral":
     cot = chain_of_thought_prompt_subqa_mixtral(new_dataset)
