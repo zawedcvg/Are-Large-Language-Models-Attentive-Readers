@@ -47,3 +47,6 @@ The parameters correspond to the section in the paper. The `MODEL` parameter is 
 `create_fake_question_tuples.py` combines different fake sub-questions with the same base question to generate multiple fake sub-question pairs. This script also creates OpenAI prompts to create adversarial paragraphs based on these.
 
 `create_fake_para.py` sends the requests, and `extract_fake_paragraphs.py` extracts the fake/adversarial paragraphs.
+
+## Dataset
+The folder `adversarial_datasets` contains the the final datasets in the distractor setting with the plausible paragraphs generated using the above method, The format of the files is exactly the same as that of HotpotQA.
