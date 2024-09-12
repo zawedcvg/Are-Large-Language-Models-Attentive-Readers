@@ -2,7 +2,19 @@
 
 This project is a framework to create adversarial paragraphs for the HotpotQA dataset, by treating each question in HotpotQA as a two-hop question . It extracts relevant information from each of these hops using [Stanza](https://github.com/stanfordnlp/stanza), and uses several techniques to fake sub-questions which are then fed into GPT-4 to create the fake paragraphs.
 
-Refer to this paper: [link to the paper]
+For citing the paper and the repo:
+
+```bibtex
+@misc{bhuiya2024seeminglyplausibledistractorsmultihop,
+      title={Seemingly Plausible Distractors in Multi-Hop Reasoning: Are Large Language Models Attentive Readers?}, 
+      author={Neeladri Bhuiya and Viktor Schlegel and Stefan Winkler},
+      year={2024},
+      eprint={2409.05197},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2409.05197}, 
+}
+```
 
 ## Prerequisites
 
