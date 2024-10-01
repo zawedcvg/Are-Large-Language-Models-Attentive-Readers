@@ -10,6 +10,7 @@ sys.path.insert(1, '..')
 from dotenv import load_dotenv
 load_dotenv()
 DIR = os.getenv("DIR")
+OPEN_AI_KEY = os.getenv("OPENAI_KEY")
 
 
 if sys.argv[1] == "other":
@@ -23,7 +24,7 @@ else:
 from tqdm import tqdm
 
 # Define your OpenAI API key
-openai.api_key = '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'
+openai.api_key = OPEN_AI_KEY
 
 with open(file_to_read, 'r') as fp:
     other_para_prompts = json.load(fp)
