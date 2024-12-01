@@ -1,18 +1,16 @@
 # Are-Large-Language-Models-Attentive-Readers
 
-This project is a framework to create adversarial paragraphs for the HotpotQA dataset, by treating each question in HotpotQA as a two-hop question . It extracts relevant information from each of these hops using [Stanza](https://github.com/stanfordnlp/stanza), and uses several techniques to fake sub-questions which are then fed into GPT-4 to create the fake paragraphs.
+This project is a framework to create adversarial paragraphs for the HotpotQA dataset, by treating each question in HotpotQA as a two-hop question . It extracts relevant information from each of these hops using [Stanza](https://github.com/stanfordnlp/stanza), and uses several techniques to create fake sub-questions which are then fed into GPT-4 to create the fake paragraphs.
 
 For citing the paper and the repo:
 
 ```bibtex
-@misc{bhuiya2024seeminglyplausibledistractorsmultihop,
-      title={Seemingly Plausible Distractors in Multi-Hop Reasoning: Are Large Language Models Attentive Readers?}, 
-      author={Neeladri Bhuiya and Viktor Schlegel and Stefan Winkler},
-      year={2024},
-      eprint={2409.05197},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2409.05197}, 
+@inproceedings{bhuiya2024seemingly,
+  title={Seemingly Plausible Distractors in Multi-Hop Reasoning: Are Large Language Models Attentive Readers?},
+  author={Bhuiya, Neeladri and Schlegel, Viktor and Winkler, Stefan},
+  booktitle={Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing},
+  pages={2514--2528},
+  year={2024}
 }
 ```
 
@@ -32,7 +30,8 @@ Put your OpenAI API key in the `.env` file.
 
 Run `pipeline.sh` to execute all the preprocessing steps.
 
-**Note:** For OpenAI requests with no response, they are stored as an empty array in the file. These should be handled by rerunning the requests either using `fill_in_failed_req.py` or another script.
+> [!NOTE]
+> For cases where OpenAI sends no responses, it is stored as an empty array in the file. These should be handled by rerunning the requests either using `fill_in_failed_req.py` or your own script.
 
 Once `pipeline.sh` is run successfully, use `create_prompts_with_fake_para.py` to create the adversarial datasets.
 
@@ -40,7 +39,7 @@ Once `pipeline.sh` is run successfully, use `create_prompts_with_fake_para.py` t
 python create_prompts_with_fake_para.py [-h] [-t TYPE] [--related | --no-related] [-c COUNT] [-m MODEL] [--same_type | --no-same_type]
 ```
 
-The parameters correspond to the section in the paper. The `MODEL` parameter is for using the prompting type of the three models defined. If no model is specified, it creates the dataset in the HotpotQA format in `$FINAL_PROMPTS/hotpotqa_format`, where `FINAL_PROMPTS` is defined in the `.env` file.
+The parameters correspond to the section 5.3 in the paper. The `MODEL` parameter is for defining the prompt format. If no model is specified, it creates the dataset in the HotpotQA format in `$FINAL_PROMPTS/hotpotqa_format`, where `FINAL_PROMPTS` is defined in the `.env` file.
 
 ## The Pipeline
 
